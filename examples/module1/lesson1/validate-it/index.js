@@ -1,37 +1,33 @@
-function validator() {
+function setValidator(validatorRule) {
   const input = document.getElementById('input');
   const validateButton = document.getElementById('validateButton');
   const clearInputButton = document.getElementById('clearInputButton');
-  const result = document.getElementById('result');
+  const resultOfValidation = document.getElementById('result');
 
-  if (!input || !validateButton || !clearInputButton || !result) {
+  if (!input || !validateButton || !clearInputButton || !resultOfValidation) {
     console.error('Elements not found');
     return;
   }
 
   validateButton?.addEventListener('click', () => {
-    const value = Number(input.value);
-    console.log('input.value', typeof value, value);
-    if (!isNaN(value)) {
-      if (Number.isInteger(value)) {
-        if (Number(value) >= 0 && Number(value) <= 100) {
-          result.innerHTML = 'Valid';
-        } else {
-          result.innerHTML = 'Invalid';
-        }
-        result.innerHTML = 'Valid';
-      } else {
-        result.innerHTML = 'Invalid';
-      }
-    } else {
-      result.innerHTML = 'Invalid';
-    }
+    const inputValue = input.value;
+    const isValid = validatorRule(inputValue);
+    resultOfValidation.innerHTML = isValid ? 'Valid' : 'Invalid';
   });
 
   clearInputButton.addEventListener('click', () => {
     input.value = '';
-    result.innerHTML = '';
+    resultOfValidation.innerHTML = '';
   });
 }
 
-validator();
+function isBetween0And100(inputValue) {
+  const value = Number(inputValue);
+  const isInteger = Number.isInteger(value);
+  if (isNaN(value) || !isInteger) {
+    return false;
+  }
+  return value >= 0 && value <= 100;
+}
+
+setValidator(isBetween0And100);
