@@ -1,17 +1,20 @@
 function validator() {
   const input = document.getElementById('input');
-  const button = document.getElementById('button');
-  const button2 = document.getElementById('button2');
+  const validateButton = document.getElementById('validateButton');
+  const clearInputButton = document.getElementById('clearInputButton');
   const result = document.getElementById('result');
 
-  button.addEventListener('click', () => {
-    if (input.value) {
-      if (Number.isInteger(input.value)) {
-        if (
-          Number(input.value) > 0 &&
-          Number(input.value) < 100 &&
-          Number(input.value) % 2 === 0
-        ) {
+  if (!input || !validateButton || !clearInputButton || !result) {
+    console.error('Elements not found');
+    return;
+  }
+
+  validateButton?.addEventListener('click', () => {
+    const value = Number(input.value);
+    console.log('input.value', typeof value, value);
+    if (!isNaN(value)) {
+      if (Number.isInteger(value)) {
+        if (Number(value) >= 0 && Number(value) <= 100) {
           result.innerHTML = 'Valid';
         } else {
           result.innerHTML = 'Invalid';
@@ -25,7 +28,7 @@ function validator() {
     }
   });
 
-  button2.addEventListener('click', () => {
+  clearInputButton.addEventListener('click', () => {
     input.value = '';
     result.innerHTML = '';
   });
