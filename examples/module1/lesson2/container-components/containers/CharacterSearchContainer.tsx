@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import CharacterList from '../components/CharacterList';
-import SearchForm from '../components/SearchForm';
+import SearchForm from '../components/SearchForm/SearchForm';
 import SearchTitle from '../components/SearchTitle';
 import { useCharacterSearch } from '../hooks/useCharacterSearch';
 import { useSortedCharacters } from '../hooks/useSortedCharacters';
